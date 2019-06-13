@@ -58,13 +58,11 @@ public class Meterstanden
                 MeterstandenMap.put(line.substring(0,10),line.substring(26,line.length()-4));
             }
         }
-        System.out.println(MeterstandenMap.size());
         proc.destroy();
         while(MeterstandenMap.size()<4)
         {
             MeterstandenMap.put(null,null);
         }
-        System.out.println(MeterstandenMap.size());
         omzettenStanden();
     }
 

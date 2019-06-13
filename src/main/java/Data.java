@@ -1,9 +1,10 @@
-import java.text.DateFormat;
+import java.io.*;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.TimeZone;
-import java.util.concurrent.TimeUnit;
-
+import java.text.DateFormat;
+import java.util.Scanner;
 /**
  * A class for creating log files of random data.
  *
@@ -24,6 +25,8 @@ public class Data
     private static double electStand = 0.0;
     private static double gasStand = 0.0;
     private static double electVerrbuik = 0.0;
+    private static double gasVerbruik = 0.0;
+    private static double lastgasstand = 0.0;
 
     private static DateFormat SampleTime;
     private static String sampletijd;
@@ -34,7 +37,6 @@ public class Data
         sensors = new Sensoren();
         stand = new Meterstanden();
         Templucht = new DHT11();
-       // Connection con = dbase.runDbase();
         dbase = new databaseConnectie();
         boolean loopt = true;
         while(loopt = true) {
@@ -43,9 +45,11 @@ public class Data
         data.getTemperatuur();
         data.getTemperatuurEnLucht();
         data.getMeterstanden();
-            dbase.database(sampletijd,binnentemperatuur, buitentemperatuur, kruipruimtetemperatuur,
-            kruipruimteluchtvochtigheid,electStand, gasStand, electVerrbuik);
-            stand.Leegmaken();
+        data.getLastgasmeterstand();
+        dbase.database(sampletijd,binnentemperatuur, buitentemperatuur, kruipruimtetemperatuur,
+            kruipruimteluchtvochtigheid,electStand, gasStand, electVerrbuik, gasVerbruik);
+        data.getHuidiggasverbruik();
+        stand.Leegmaken();
         data.printOut();
         TimeUnit.SECONDS.sleep(300);
     }
@@ -61,11 +65,22 @@ public class Data
         this.kruipruimteluchtvochtigheid = Templucht.getDHT11(1);
 
     }
+    public void getLastgasmeterstand() {
+        this.lastgasstand = gasStand;
+    }
+
+    public void getHuidiggasverbruik() {
+        if(gasStand - lastgasstand < 100.0) { //anders is huidig verbruik complete tellerstand
+            this.gasVerbruik = gasStand - lastgasstand;
+        }
+        this.gasVerbruik = 0.0;
+}
 
     public void getMeterstanden() throws Exception {
         this.electStand = stand.getMeterStanden(0);
         this.gasStand = stand.getMeterStanden(1);
         this.electVerrbuik = stand.getMeterStanden(2);
+        this.gasVerbruik = gasStand - lastgasstand;
     }
 
     public void settime() {
@@ -84,6 +99,7 @@ public class Data
         System.out.println(electStand  + " huidig elect verbuik");
         System.out.println(gasStand + " totaalstand gasmeter");
         System.out.println(electVerrbuik + " totaalstand electmeter");
+        System.out.println(gasVerbruik + " huidig gasverbruik");
 
     }
 

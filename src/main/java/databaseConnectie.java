@@ -7,6 +7,7 @@ import java.sql.*;
  * @version (23 April 2019)
  */
 public class databaseConnectie {
+    private static final String JDBC_URL = "jdbc:mysql://localhost/hr?serverTimezone=EST";
     private static String connectie;
     private static String user;
     private static String password;
@@ -19,7 +20,7 @@ public class databaseConnectie {
      * data ophalen uit repofile
      */
 
-    public databaseConnectie(){
+    public databaseConnectie() {
         uitlezen = new RepoUitlezen();
         this.user = uitlezen.getRepodata(0);
         this.password = uitlezen.getRepodata(1);
@@ -29,17 +30,16 @@ public class databaseConnectie {
     }
 
     /**
-     * deze methode maak een connectie met de datbase 
+     * deze methode maak een connectie met de datbase
      *
-     * @param  input van uit class data
+     * @param input van uit class data
      */
-    public static void database(String sampletijd, double binnentemperatuur, double buitentemperatuur, double kruipruimtetemperatuur, double
-    kruipruimteluchtvochtigheid, double electStand, double gasStand, double electVerrbuik){
-        try
-           // Class.forName("com.mysql.jdbc.Driver");
-        (Connection con = getConnection()) {
 
-            Statement stmt=con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+    public static void database(String sampletijd, double binnentemperatuur, double buitentemperatuur, double kruipruimtetemperatuur, double
+            kruipruimteluchtvochtigheid, double electStand, double gasStand, double electVerrbuik, double gasVerbruik) {
+        try {
+            Connection con = DriverManager.getConnection(String.format("jdbc:mysql://%s/%s?serverTimezone=EST", connectie, database), user, password);
+            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = stmt.executeQuery("Select * From " + tabel);
             rs.moveToInsertRow();
             rs.updateString("Timestamp", sampletijd);
@@ -50,20 +50,13 @@ public class databaseConnectie {
             rs.updateDouble("Huidigelectverbruik", electStand);
             rs.updateDouble("Totaalstandgasmeter", gasStand);
             rs.updateDouble("Totaalstandelectmeter", electVerrbuik);
+            rs.updateDouble("gasVerrbuik", gasVerbruik);
             rs.insertRow();
             rs.beforeFirst();
-            con.close();  
+            con.close();
             System.out.println("update database oke");
-        }catch(Exception e){ System.out.println(e);}
-    }
-
- /*   public static Connection runDbase() throws SQLException {
-        try (Connection con = getConnection()) {
-            return con;
+        } catch (Exception e) {
+            System.out.println(e);
         }
-    }*/
-
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(String.format("jdbc:mysql://%s/%s?serverTimezone=EST", connectie, database), user, password);
-}
+    }
 }
