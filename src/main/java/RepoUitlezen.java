@@ -1,11 +1,11 @@
 import java.io.IOException;
+import java.util.List;
+import java.util.ArrayList;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.*;
 /**
  * class ControleNewFile - geef hier een beschrijving van deze class
  *
@@ -23,7 +23,7 @@ public class RepoUitlezen
      */
     public RepoUitlezen() 
     {
-        repodata = new ArrayList<String>();
+        repodata = new ArrayList<>();
         CHeckfileAllLines();
     }
 
@@ -43,7 +43,7 @@ public class RepoUitlezen
             }
             repodata.removeIf(String -> String.charAt(0) == '#');
         } catch (IOException e) {
-            System.out.println(e);
+            Printlog.printlog(e.toString());
         }
     }
 

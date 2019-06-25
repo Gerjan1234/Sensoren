@@ -27,12 +27,12 @@ public class Data
     private static double electVerrbuik = 0.0;
     private static double gasVerbruik = 0.0;
     private static double lastgasstand = 0.0;
-
     private static DateFormat SampleTime;
     private static String sampletijd;
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) { //throws Exception {
         System.out.println("programma gestart");
+        Printlog.printlog("programma gestart");
         Data data = new Data();
         sensors = new Sensoren();
         stand = new Meterstanden();
@@ -51,16 +51,20 @@ public class Data
         data.getHuidiggasverbruik();
         stand.Leegmaken();
         data.printOut();
+        try {
         TimeUnit.SECONDS.sleep(300);
+        } catch (InterruptedException e) {
+            Printlog.printlog(e.toString());
+        }
     }
     }
 
-    public void getTemperatuur() throws Exception {
+    public void getTemperatuur() {
         this.binnentemperatuur = sensors.getSensoren(0);
         this.buitentemperatuur = sensors.getSensoren(1);
     }
 
-    public void getTemperatuurEnLucht() throws Exception {
+    public void getTemperatuurEnLucht() {
         this.kruipruimtetemperatuur = Templucht.getDHT11(0);
         this.kruipruimteluchtvochtigheid = Templucht.getDHT11(1);
 
@@ -70,13 +74,17 @@ public class Data
     }
 
     public void getHuidiggasverbruik() {
-        if(gasStand - lastgasstand < 100.0) { //anders is huidig verbruik complete tellerstand
-            this.gasVerbruik = gasStand - lastgasstand;
+        double verbruik = gasStand - lastgasstand;
+        if (verbruik > 100){
+            this.gasVerbruik = 0;
+        } else {
+        this.gasVerbruik = gasStand - lastgasstand;
         }
-        this.gasVerbruik = 0.0;
-}
+    }
 
-    public void getMeterstanden() throws Exception {
+
+
+    public void getMeterstanden() {
         this.electStand = stand.getMeterStanden(0);
         this.gasStand = stand.getMeterStanden(1);
         this.electVerrbuik = stand.getMeterStanden(2);
@@ -99,8 +107,7 @@ public class Data
         System.out.println(electStand  + " huidig elect verbuik");
         System.out.println(gasStand + " totaalstand gasmeter");
         System.out.println(electVerrbuik + " totaalstand electmeter");
-        System.out.println(gasVerbruik + " huidig gasverbruik");
-
+        System.out.println(gasVerbruik + " huidig gas verbuik");
     }
 
 }

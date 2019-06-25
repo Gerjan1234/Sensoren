@@ -1,7 +1,12 @@
+import java.io.File;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.text.DateFormat;
 
 /**
  * Class DS1820
@@ -31,7 +36,7 @@ public class DS1820 {
      * uitlezen per sensor
      */
     
-    public Double readme()
+    public Double readme() 
     {
 
         Path path = FileSystems.getDefault().getPath(devicesPath, Sensor, valueFile);

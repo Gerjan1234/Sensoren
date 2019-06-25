@@ -1,7 +1,9 @@
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.*;
+import java.util.HashMap;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * class Meterstanden - geef hier een beschrijving van deze class
@@ -33,10 +35,11 @@ public class Meterstanden
     /**
      * uitlezen van CCterminal inlezen in en overzetten naar hashmap
      */
-    public void useCCterminal() throws Exception {
+    public void useCCterminal() {
         ArrayList Meterstandentemp = new ArrayList<Double>();
         //start cu applicatie
         String command = "cu -l /dev/ttyUSB0 -s 115200";
+        try {
         Process proc = Runtime.getRuntime().exec(command);
         // Read the output
         BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()));
@@ -59,6 +62,9 @@ public class Meterstanden
             }
         }
         proc.destroy();
+        } catch (IOException e) {
+        Printlog.printlog(e.toString());
+}
         while(MeterstandenMap.size()<4)
         {
             MeterstandenMap.put(null,null);

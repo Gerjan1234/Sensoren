@@ -38,6 +38,8 @@ public class databaseConnectie {
     public static void database(String sampletijd, double binnentemperatuur, double buitentemperatuur, double kruipruimtetemperatuur, double
             kruipruimteluchtvochtigheid, double electStand, double gasStand, double electVerrbuik, double gasVerbruik) {
         try {
+            //Class.forName("com.mysql.jdbc.Driver");
+            //Connection con = DriverManager.getConnection(String.format("jdbc:mysql://%s/%s", connectie, database), user, password);
             Connection con = DriverManager.getConnection(String.format("jdbc:mysql://%s/%s?serverTimezone=EST", connectie, database), user, password);
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = stmt.executeQuery("Select * From " + tabel);
