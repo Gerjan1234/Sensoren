@@ -7,7 +7,7 @@ import java.sql.*;
  * @version (23 April 2019)
  */
 public class databaseConnectie {
-    private static final String JDBC_URL = "jdbc:mysql://localhost/hr?serverTimezone=EST";
+    private static final String JDBC_URL = "jdbc:mysql://localhost/hr?serverTimezone=UTC";
     private static String connectie;
     private static String user;
     private static String password;
@@ -36,7 +36,9 @@ public class databaseConnectie {
      */
 
     public static void database(String sampletijd, double binnentemperatuur, double buitentemperatuur, double kruipruimtetemperatuur, double
-            kruipruimteluchtvochtigheid, double electStand, double gasStand, double electVerrbuik, double gasVerbruik) {
+            kruipruimteluchtvochtigheid, double electStand, double gasStand, double electVerrbuik, double gasVerbruik, double verwtempgroep1,
+            double verwtempgroep2, double verwtempgroep3, double verwtempgroep4, double verwtempgroep5, double verwtempgroep6,
+            double verwtempgroep7, double verwtempgroep8, double verwtempgroep9, double verwtempretour) {
         try {
             //Class.forName("com.mysql.jdbc.Driver");
             //Connection con = DriverManager.getConnection(String.format("jdbc:mysql://%s/%s", connectie, database), user, password);
@@ -53,6 +55,16 @@ public class databaseConnectie {
             rs.updateDouble("Totaalstandgasmeter", gasStand);
             rs.updateDouble("Totaalstandelectmeter", electVerrbuik);
             rs.updateDouble("gasVerrbuik", gasVerbruik);
+            rs.updateDouble("verwtempgroep1", verwtempgroep1);
+            rs.updateDouble("verwtempgroep2", verwtempgroep2);
+            rs.updateDouble("verwtempgroep3", verwtempgroep3);
+            rs.updateDouble("verwtempgroep4", verwtempgroep4);
+            rs.updateDouble("verwtempgroep5", verwtempgroep5);
+            rs.updateDouble("verwtempgroep6", verwtempgroep6);
+            rs.updateDouble("verwtempgroep7", verwtempgroep7);
+            rs.updateDouble("verwtempgroep8", verwtempgroep8);
+            rs.updateDouble("verwtempgroep9", verwtempgroep9);
+            rs.updateDouble("verwtempretour", verwtempretour);
             rs.insertRow();
             rs.beforeFirst();
             con.close();

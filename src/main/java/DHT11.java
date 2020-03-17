@@ -28,10 +28,16 @@ public class DHT11
             //size of array uit de meter is 26
             while (Dht11.size() < 2) {
                 line = reader.readLine();
-                Double test = Double.parseDouble(line);
-                Dht11.add(test);
+                try {
+                    Double test = Double.parseDouble(line);
+                    Dht11.add(test);
+                } catch (Exception e) {
+                    Printlog.printlog(e.toString());
+                    Double test = 0.0;
+                    Dht11.add(test);
+                }
             }
-        }catch (IOException e) {
+            }catch (IOException e) {
             Printlog.printlog(e.toString());
         }
 

@@ -22,6 +22,16 @@ public class Data
     private static double buitentemperatuur = 0.0;
     private static double kruipruimtetemperatuur = 0.0;
     private static double kruipruimteluchtvochtigheid = 0.0;
+    private static double verwtempgroep1 = 0.0;
+    private static double verwtempgroep2 = 0.0;
+    private static double verwtempgroep3 = 0.0;
+    private static double verwtempgroep4 = 0.0;
+    private static double verwtempgroep5 = 0.0;
+    private static double verwtempgroep6 = 0.0;
+    private static double verwtempgroep7 = 0.0;
+    private static double verwtempgroep8 = 0.0;
+    private static double verwtempgroep9 = 0.0;
+    private static double verwtempretour = 0.0;
     private static double electStand = 0.0;
     private static double gasStand = 0.0;
     private static double electVerrbuik = 0.0;
@@ -47,7 +57,8 @@ public class Data
         data.getMeterstanden();
         data.getLastgasmeterstand();
         dbase.database(sampletijd,binnentemperatuur, buitentemperatuur, kruipruimtetemperatuur,
-            kruipruimteluchtvochtigheid,electStand, gasStand, electVerrbuik, gasVerbruik);
+            kruipruimteluchtvochtigheid,electStand, gasStand, electVerrbuik, gasVerbruik, verwtempgroep1, verwtempgroep2,verwtempgroep3,
+                verwtempgroep4, verwtempgroep5, verwtempgroep6, verwtempgroep7, verwtempgroep8, verwtempgroep9, verwtempretour);
         data.getHuidiggasverbruik();
         stand.Leegmaken();
         data.printOut();
@@ -62,6 +73,16 @@ public class Data
     public void getTemperatuur() {
         this.binnentemperatuur = sensors.getSensoren(0);
         this.buitentemperatuur = sensors.getSensoren(1);
+        this.verwtempgroep1 = sensors.getSensoren(2);
+        this.verwtempgroep2 = sensors.getSensoren(3);
+        this.verwtempgroep3 = sensors.getSensoren(4);
+        this.verwtempgroep4 = sensors.getSensoren(5);
+        this.verwtempgroep5 = sensors.getSensoren(6);
+        this.verwtempgroep6 = sensors.getSensoren(7);
+        this.verwtempgroep7 = sensors.getSensoren(8);
+        this.verwtempgroep8 = sensors.getSensoren(9);
+        this.verwtempgroep9 = sensors.getSensoren(10);
+        this.verwtempretour = sensors.getSensoren(11);
     }
 
     public void getTemperatuurEnLucht() {
@@ -108,6 +129,17 @@ public class Data
         System.out.println(gasStand + " totaalstand gasmeter");
         System.out.println(electVerrbuik + " totaalstand electmeter");
         System.out.println(gasVerbruik + " huidig gas verbuik");
+        System.out.println(verwtempgroep1 + " temperatuur groep 1");
+        System.out.println(verwtempgroep2 + " temperatuur groep 2");
+        System.out.println(verwtempgroep3 + " temperatuur groep 3");
+        System.out.println(verwtempgroep4 + " temperatuur groep 4");
+        System.out.println(verwtempgroep5 + " temperatuur groep 5");
+        System.out.println(verwtempgroep6 + " temperatuur groep 6");
+        System.out.println(verwtempgroep7 + " temperatuur groep 7");
+        System.out.println(verwtempgroep8 + " temperatuur groep 8");
+        System.out.println(verwtempgroep9 + " temperatuur groep 9");
+        System.out.println(verwtempretour + " temperatuur retour");
+
     }
 
 }
