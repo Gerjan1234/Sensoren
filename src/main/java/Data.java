@@ -39,6 +39,9 @@ public class Data
     private static double lastgasstand = 0.0;
     private static DateFormat SampleTime;
     private static String sampletijd;
+    private static Watermeter watermeter;
+    private static double watermeterstand = 0.0;
+
 
     public static void main(String[] args) { //throws Exception {
         System.out.println("programma gestart");
@@ -48,6 +51,7 @@ public class Data
         stand = new Meterstanden();
         Templucht = new DHT11();
         dbase = new databaseConnectie();
+        watermeter = new Watermeter();
         boolean loopt = true;
         while(loopt = true) {
         data.settime();
@@ -56,9 +60,10 @@ public class Data
         data.getTemperatuurEnLucht();
         data.getMeterstanden();
         data.getLastgasmeterstand();
+        data.getwatermeterstand();
         dbase.database(sampletijd,binnentemperatuur, buitentemperatuur, kruipruimtetemperatuur,
             kruipruimteluchtvochtigheid,electStand, gasStand, electVerrbuik, gasVerbruik, verwtempgroep1, verwtempgroep2,verwtempgroep3,
-                verwtempgroep4, verwtempgroep5, verwtempgroep6, verwtempgroep7, verwtempgroep8, verwtempgroep9, verwtempretour);
+                verwtempgroep4, verwtempgroep5, verwtempgroep6, verwtempgroep7, verwtempgroep8, verwtempgroep9, verwtempretour, watermeterstand);
         data.getHuidiggasverbruik();
         stand.Leegmaken();
         data.printOut();
@@ -112,6 +117,10 @@ public class Data
         this.gasVerbruik = gasStand - lastgasstand;
     }
 
+    public void getwatermeterstand(){
+        this.watermeterstand = watermeter.leeswatermeterstand();
+    }
+
     public void settime() {
         SampleTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SampleTime.setTimeZone(TimeZone.getTimeZone("Europe/Amsterdam"));
@@ -139,6 +148,7 @@ public class Data
         System.out.println(verwtempgroep8 + " temperatuur groep 8");
         System.out.println(verwtempgroep9 + " temperatuur groep 9");
         System.out.println(verwtempretour + " temperatuur retour");
+        System.out.println(watermeterstand + " stand watermeter");
 
     }
 

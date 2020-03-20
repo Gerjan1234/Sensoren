@@ -9,7 +9,7 @@ import java.util.*;
 /**
  * class ControleNewFile - geef hier een beschrijving van deze class
  *
- * @author (Gerjan)
+         * @author (Gerjan)
  * @version (23 April 2019)
  */
 

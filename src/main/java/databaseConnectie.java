@@ -38,7 +38,7 @@ public class databaseConnectie {
     public static void database(String sampletijd, double binnentemperatuur, double buitentemperatuur, double kruipruimtetemperatuur, double
             kruipruimteluchtvochtigheid, double electStand, double gasStand, double electVerrbuik, double gasVerbruik, double verwtempgroep1,
             double verwtempgroep2, double verwtempgroep3, double verwtempgroep4, double verwtempgroep5, double verwtempgroep6,
-            double verwtempgroep7, double verwtempgroep8, double verwtempgroep9, double verwtempretour) {
+            double verwtempgroep7, double verwtempgroep8, double verwtempgroep9, double verwtempretour, double watermeterstand) {
         try {
             //Class.forName("com.mysql.jdbc.Driver");
             //Connection con = DriverManager.getConnection(String.format("jdbc:mysql://%s/%s", connectie, database), user, password);
@@ -65,6 +65,7 @@ public class databaseConnectie {
             rs.updateDouble("verwtempgroep8", verwtempgroep8);
             rs.updateDouble("verwtempgroep9", verwtempgroep9);
             rs.updateDouble("verwtempretour", verwtempretour);
+            rs.updateDouble("watermeterstand", watermeterstand);
             rs.insertRow();
             rs.beforeFirst();
             con.close();
