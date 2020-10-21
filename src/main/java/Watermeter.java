@@ -11,7 +11,7 @@ import java.util.List;
  * class Watermeter
  *
  * @author (Gerjan)
- * @version (17 Maart 2020)
+ * @version (17 Maart 2020) pom geupdate
  * uilezen van tekst file met stand watermeter wat gevuld wordt door watermeter.jar
  */
 public class Watermeter {
@@ -20,7 +20,7 @@ public class Watermeter {
 
 
     public Double leeswatermeterstand() {
-    String x = "";
+    String x = "000.000";
         Path fileLocation = Paths.get("/home/pi/projectX/", "watermeterstand.ini");
         Charset charset = Charset.forName("ISO-8859-1");
         try {
